@@ -1,8 +1,4 @@
 package electron.main;
-/**
-	Control your application's event lifecycle.
-	@see http://electronjs.org/docs/api/app
-**/
 @:jsRequire("electron", "app") extern class App extends js.node.events.EventEmitter<electron.main.App> {
 	/**
 		A Menu property that return Menu if one has been set and null otherwise. Users can pass a Menu to set this property.
@@ -82,7 +78,7 @@ package electron.main;
 	var args : Array<String>; @:optional
 	var execPath : String; }):Void;
 	static function isReady():Bool;
-	static function whenReady():js.lib.Promise<Any>;
+	static function whenReady():js.Promise<Any>;
 	/**
 		On Linux, focuses on the first visible window. On macOS, makes the application the active app. On Windows, focuses on the application's first window.
 	**/
@@ -110,7 +106,7 @@ package electron.main;
 		Fetches a path's associated icon. On Windows, there a 2 kinds of icons: On Linux and macOS, icons depend on the application associated with file mime type.
 	**/
 	@:overload(function(path:String, ?options:{ var size : String; }, callback:haxe.Constraints.Function):Void { })
-	static function getFileIcon(path:String, ?options:{ var size : String; }):js.lib.Promise<Any>;
+	static function getFileIcon(path:String, ?options:{ var size : String; }):js.Promise<Any>;
 	/**
 		Overrides the path to a special directory or file associated with name. If the path specifies a directory that does not exist, an Error is thrown. In that case, the directory should be created with fs.mkdirSync or similar. You can only override paths of a name defined in app.getPath. By default, web pages' cookies and caches will be stored under the userData directory. If you want to change this location, you have to override the userData path before the ready event of the app module is emitted.
 	**/
@@ -225,7 +221,7 @@ package electron.main;
 	/**
 		For infoType equal to complete: Promise is fulfilled with Object containing all the GPU Information as in chromium's GPUInfo object. This includes the version and driver information that's shown on chrome://gpu page. For infoType equal to basic: Promise is fulfilled with Object containing fewer attributes than when requested with complete. Here's an example of basic response: Using basic should be preferred if only basic information like vendorId or driverId is needed.
 	**/
-	static function getGPUInfo(infoType:String):js.lib.Promise<Any>;
+	static function getGPUInfo(infoType:String):js.Promise<Any>;
 	/**
 		Sets the counter badge for current app. Setting the count to 0 will hide the badge. On macOS, it shows on the dock icon. On Linux, it only works for Unity launcher. Note: Unity launcher requires the existence of a .desktop file to work, for more information please read Desktop Environment Integration.
 	**/
@@ -366,47 +362,47 @@ package electron.main;
 	/**
 		Emitted when the application is quitting. Note: On Windows, this event will not be emitted if the app is closed due to a shutdown/restart of the system or a user logout.
 	**/
-	var quit : electron.main.AppEvent<(js.html.Event, Int) -> Void> = "quit";
+	var quit : electron.main.AppEvent<js.html.Event -> Int -> Void> = "quit";
 	/**
 		Emitted when the user wants to open a file with the application. The open-file event is usually emitted when the application is already open and the OS wants to reuse the application to open the file. open-file is also emitted when a file is dropped onto the dock and the application is not yet running. Make sure to listen for the open-file event very early in your application startup to handle this case (even before the ready event is emitted). You should call event.preventDefault() if you want to handle this event. On Windows, you have to parse process.argv (in the main process) to get the filepath.
 	**/
 	@:electron_platforms(["macOS"])
-	var open_file : electron.main.AppEvent<(js.html.Event, String) -> Void> = "open-file";
+	var open_file : electron.main.AppEvent<js.html.Event -> String -> Void> = "open-file";
 	/**
 		Emitted when the user wants to open a URL with the application. Your application's Info.plist file must define the url scheme within the CFBundleURLTypes key, and set NSPrincipalClass to AtomApplication. You should call event.preventDefault() if you want to handle this event.
 	**/
 	@:electron_platforms(["macOS"])
-	var open_url : electron.main.AppEvent<(js.html.Event, String) -> Void> = "open-url";
+	var open_url : electron.main.AppEvent<js.html.Event -> String -> Void> = "open-url";
 	/**
 		Emitted when the application is activated. Various actions can trigger this event, such as launching the application for the first time, attempting to re-launch the application when it's already running, or clicking on the application's dock or taskbar icon.
 	**/
 	@:electron_platforms(["macOS"])
-	var activate : electron.main.AppEvent<(js.html.Event, Bool) -> Void> = "activate";
+	var activate : electron.main.AppEvent<js.html.Event -> Bool -> Void> = "activate";
 	/**
 		Emitted during Handoff when an activity from a different device wants to be resumed. You should call event.preventDefault() if you want to handle this event. A user activity can be continued only in an app that has the same developer Team ID as the activity's source app and that supports the activity's type. Supported activity types are specified in the app's Info.plist under the NSUserActivityTypes key.
 	**/
 	@:electron_platforms(["macOS"])
-	var continue_activity : electron.main.AppEvent<(js.html.Event, String, Any) -> Void> = "continue-activity";
+	var continue_activity : electron.main.AppEvent<js.html.Event -> String -> Any -> Void> = "continue-activity";
 	/**
 		Emitted during Handoff before an activity from a different device wants to be resumed. You should call event.preventDefault() if you want to handle this event.
 	**/
 	@:electron_platforms(["macOS"])
-	var will_continue_activity : electron.main.AppEvent<(js.html.Event, String) -> Void> = "will-continue-activity";
+	var will_continue_activity : electron.main.AppEvent<js.html.Event -> String -> Void> = "will-continue-activity";
 	/**
 		Emitted during Handoff when an activity from a different device fails to be resumed.
 	**/
 	@:electron_platforms(["macOS"])
-	var continue_activity_error : electron.main.AppEvent<(js.html.Event, String, String) -> Void> = "continue-activity-error";
+	var continue_activity_error : electron.main.AppEvent<js.html.Event -> String -> String -> Void> = "continue-activity-error";
 	/**
 		Emitted during Handoff after an activity from this device was successfully resumed on another one.
 	**/
 	@:electron_platforms(["macOS"])
-	var activity_was_continued : electron.main.AppEvent<(js.html.Event, String, Any) -> Void> = "activity-was-continued";
+	var activity_was_continued : electron.main.AppEvent<js.html.Event -> String -> Any -> Void> = "activity-was-continued";
 	/**
 		Emitted when Handoff is about to be resumed on another device. If you need to update the state to be transferred, you should call event.preventDefault() immediately, construct a new userInfo dictionary and call app.updateCurrentActiviy() in a timely manner. Otherwise, the operation will fail and continue-activity-error will be called.
 	**/
 	@:electron_platforms(["macOS"])
-	var update_activity_state : electron.main.AppEvent<(js.html.Event, String, Any) -> Void> = "update-activity-state";
+	var update_activity_state : electron.main.AppEvent<js.html.Event -> String -> Any -> Void> = "update-activity-state";
 	/**
 		Emitted when the user clicks the native macOS new tab button. The new tab button is only visible if the current BrowserWindow has a tabbingIdentifier
 	**/
@@ -415,44 +411,44 @@ package electron.main;
 	/**
 		Emitted when a browserWindow gets blurred.
 	**/
-	var browser_window_blur : electron.main.AppEvent<(js.html.Event, electron.main.BrowserWindow) -> Void> = "browser-window-blur";
+	var browser_window_blur : electron.main.AppEvent<js.html.Event -> electron.main.BrowserWindow -> Void> = "browser-window-blur";
 	/**
 		Emitted when a browserWindow gets focused.
 	**/
-	var browser_window_focus : electron.main.AppEvent<(js.html.Event, electron.main.BrowserWindow) -> Void> = "browser-window-focus";
+	var browser_window_focus : electron.main.AppEvent<js.html.Event -> electron.main.BrowserWindow -> Void> = "browser-window-focus";
 	/**
 		Emitted when a new browserWindow is created.
 	**/
-	var browser_window_created : electron.main.AppEvent<(js.html.Event, electron.main.BrowserWindow) -> Void> = "browser-window-created";
+	var browser_window_created : electron.main.AppEvent<js.html.Event -> electron.main.BrowserWindow -> Void> = "browser-window-created";
 	/**
 		Emitted when a new webContents is created.
 	**/
-	var web_contents_created : electron.main.AppEvent<(js.html.Event, electron.main.WebContents) -> Void> = "web-contents-created";
+	var web_contents_created : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> Void> = "web-contents-created";
 	/**
 		Emitted when failed to verify the certificate for url, to trust the certificate you should prevent the default behavior with event.preventDefault() and call callback(true).
 	**/
-	var certificate_error : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, String, String, electron.Certificate, haxe.Constraints.Function) -> Void> = "certificate-error";
+	var certificate_error : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> String -> String -> electron.Certificate -> haxe.Constraints.Function -> Void> = "certificate-error";
 	/**
 		Emitted when a client certificate is requested. The url corresponds to the navigation entry requesting the client certificate and callback can be called with an entry filtered from the list. Using event.preventDefault() prevents the application from using the first certificate from the store.
 	**/
-	var select_client_certificate : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, String, Array<electron.Certificate>, haxe.Constraints.Function) -> Void> = "select-client-certificate";
+	var select_client_certificate : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> String -> Array<electron.Certificate> -> haxe.Constraints.Function -> Void> = "select-client-certificate";
 	/**
 		Emitted when webContents wants to do basic auth. The default behavior is to cancel all authentications. To override this you should prevent the default behavior with event.preventDefault() and call callback(username, password) with the credentials.
 	**/
-	var login : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, Any, Any, haxe.Constraints.Function) -> Void> = "login";
+	var login : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> Any -> Any -> haxe.Constraints.Function -> Void> = "login";
 	/**
 		Emitted when the gpu process crashes or is killed.
 	**/
-	var gpu_process_crashed : electron.main.AppEvent<(js.html.Event, Bool) -> Void> = "gpu-process-crashed";
+	var gpu_process_crashed : electron.main.AppEvent<js.html.Event -> Bool -> Void> = "gpu-process-crashed";
 	/**
 		Emitted when the renderer process of webContents crashes or is killed.
 	**/
-	var renderer_process_crashed : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, Bool) -> Void> = "renderer-process-crashed";
+	var renderer_process_crashed : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> Bool -> Void> = "renderer-process-crashed";
 	/**
 		Emitted when Chrome's accessibility support changes. This event fires when assistive technologies, such as screen readers, are enabled or disabled. See https://www.chromium.org/developers/design-documents/accessibility for more details.
 	**/
 	@:electron_platforms(["macOS", "Windows"])
-	var accessibility_support_changed : electron.main.AppEvent<(js.html.Event, Bool) -> Void> = "accessibility-support-changed";
+	var accessibility_support_changed : electron.main.AppEvent<js.html.Event -> Bool -> Void> = "accessibility-support-changed";
 	/**
 		Emitted when Electron has created a new session.
 	**/
@@ -460,33 +456,33 @@ package electron.main;
 	/**
 		This event will be emitted inside the primary instance of your application when a second instance has been executed and calls app.requestSingleInstanceLock(). argv is an Array of the second instance's command line arguments, and workingDirectory is its current working directory. Usually applications respond to this by making their primary window focused and non-minimized. This event is guaranteed to be emitted after the ready event of app gets emitted. Note: Extra command line arguments might be added by Chromium, such as --original-process-start-time.
 	**/
-	var second_instance : electron.main.AppEvent<(js.html.Event, Array<String>, String) -> Void> = "second-instance";
+	var second_instance : electron.main.AppEvent<js.html.Event -> Array<String> -> String -> Void> = "second-instance";
 	/**
 		Emitted when desktopCapturer.getSources() is called in the renderer process of webContents. Calling event.preventDefault() will make it return empty sources.
 	**/
-	var desktop_capturer_get_sources : electron.main.AppEvent<(js.html.Event, electron.main.WebContents) -> Void> = "desktop-capturer-get-sources";
+	var desktop_capturer_get_sources : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> Void> = "desktop-capturer-get-sources";
 	/**
 		Emitted when remote.require() is called in the renderer process of webContents. Calling event.preventDefault() will prevent the module from being returned. Custom value can be returned by setting event.returnValue.
 	**/
-	var remote_require : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, String) -> Void> = "remote-require";
+	var remote_require : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> String -> Void> = "remote-require";
 	/**
 		Emitted when remote.getGlobal() is called in the renderer process of webContents. Calling event.preventDefault() will prevent the global from being returned. Custom value can be returned by setting event.returnValue.
 	**/
-	var remote_get_global : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, String) -> Void> = "remote-get-global";
+	var remote_get_global : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> String -> Void> = "remote-get-global";
 	/**
 		Emitted when remote.getBuiltin() is called in the renderer process of webContents. Calling event.preventDefault() will prevent the module from being returned. Custom value can be returned by setting event.returnValue.
 	**/
-	var remote_get_builtin : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, String) -> Void> = "remote-get-builtin";
+	var remote_get_builtin : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> String -> Void> = "remote-get-builtin";
 	/**
 		Emitted when remote.getCurrentWindow() is called in the renderer process of webContents. Calling event.preventDefault() will prevent the object from being returned. Custom value can be returned by setting event.returnValue.
 	**/
-	var remote_get_current_window : electron.main.AppEvent<(js.html.Event, electron.main.WebContents) -> Void> = "remote-get-current-window";
+	var remote_get_current_window : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> Void> = "remote-get-current-window";
 	/**
 		Emitted when remote.getCurrentWebContents() is called in the renderer process of webContents. Calling event.preventDefault() will prevent the object from being returned. Custom value can be returned by setting event.returnValue.
 	**/
-	var remote_get_current_web_contents : electron.main.AppEvent<(js.html.Event, electron.main.WebContents) -> Void> = "remote-get-current-web-contents";
+	var remote_get_current_web_contents : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> Void> = "remote-get-current-web-contents";
 	/**
 		Emitted when <webview>.getWebContents() is called in the renderer process of webContents. Calling event.preventDefault() will prevent the object from being returned. Custom value can be returned by setting event.returnValue.
 	**/
-	var remote_get_guest_web_contents : electron.main.AppEvent<(js.html.Event, electron.main.WebContents, electron.main.WebContents) -> Void> = "remote-get-guest-web-contents";
+	var remote_get_guest_web_contents : electron.main.AppEvent<js.html.Event -> electron.main.WebContents -> electron.main.WebContents -> Void> = "remote-get-guest-web-contents";
 }

@@ -1,8 +1,4 @@
 package electron;
-/**
-	Manage files and URLs using their default applications.
-	@see http://electronjs.org/docs/api/shell
-**/
 @:jsRequire("electron", "shell") extern class Shell {
 	/**
 		Show the given file in a file manager. If possible, select the file.
@@ -35,7 +31,7 @@ package electron;
 		The working directory.
 	**/
 	@:optional
-	var workingDirectory : String; }):js.lib.Promise<Any>;
+	var workingDirectory : String; }):js.Promise<Any>;
 	/**
 		Move the given file to trash and returns a boolean status for the operation.
 	**/

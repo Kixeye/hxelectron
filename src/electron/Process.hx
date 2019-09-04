@@ -1,8 +1,4 @@
 package electron;
-/**
-	Extensions to process object.
-	@see http://electronjs.org/docs/api/process
-**/
 @:jsRequire("electron", "process") extern class Process extends js.node.events.EventEmitter<electron.Process> {
 	/**
 		A Boolean. When app is started by being passed as parameter to the default app, this property is true in the main process, otherwise it is undefined.
@@ -81,7 +77,7 @@ package electron;
 	/**
 		Returns an object giving memory usage statistics about the current process. Note that all statistics are reported in Kilobytes. This api should be called after app ready. Chromium does not provide residentSet value for macOS. This is because macOS performs in-memory compression of pages that haven't been recently used. As a result the resident set size value is not what one would expect. private memory is more representative of the actual pre-compression memory usage of the process on macOS.
 	**/
-	static function getProcessMemoryInfo():js.lib.Promise<Any>;
+	static function getProcessMemoryInfo():js.Promise<Any>;
 	/**
 		Returns an object giving memory usage statistics about the entire system. Note that all statistics are reported in Kilobytes.
 	**/

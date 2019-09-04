@@ -1,8 +1,4 @@
 package electron.main;
-/**
-	Register a custom protocol and intercept existing protocol requests.
-	@see http://electronjs.org/docs/api/protocol
-**/
 @:jsRequire("electron", "protocol") extern class Protocol {
 	/**
 		Note: This method can only be used before the ready event of the app module gets emitted and can be called only once. Registers the scheme as standard, secure, bypasses content security policy for resources, allows registering ServiceWorker and supports fetch API. Specify a privilege with the value of true to enable the capability. An example of registering a privileged scheme, with bypassing Content Security Policy: A standard scheme adheres to what RFC 3986 calls generic URI syntax. For example http and https are standard schemes, while file is not. Registering a scheme as standard, will allow relative and absolute resources to be resolved correctly when served. Otherwise the scheme will behave like the file protocol, but without the ability to resolve relative URLs. For example when you load following page with custom protocol without registering it as standard scheme, the image will not be loaded because non-standard schemes can not recognize relative URLs: Registering a scheme as standard will allow access to files through the FileSystem API. Otherwise the renderer will throw a security error for the scheme. By default web storage apis (localStorage, sessionStorage, webSQL, indexedDB, cookies) are disabled for non standard schemes. So in general if you want to register a custom protocol to replace the http protocol, you have to register it as a standard scheme. protocol.registerSchemesAsPrivileged can be used to replicate the functionality of the previous protocol.registerStandardSchemes, webFrame.registerURLSchemeAs* and protocol.registerServiceWorkerSchemes functions that existed prior to Electron 5.0.0, for example: before (<= v4.x) after (>= v5.x)
@@ -33,7 +29,7 @@ package electron.main;
 	**/
 	static function unregisterProtocol(scheme:String, ?completion:haxe.Constraints.Function):Void;
 	@:overload(function(scheme:String, callback:haxe.Constraints.Function):Void { })
-	static function isProtocolHandled(scheme:String):js.lib.Promise<Any>;
+	static function isProtocolHandled(scheme:String):js.Promise<Any>;
 	/**
 		Intercepts scheme protocol and uses handler as the protocol's new handler which sends a file as a response.
 	**/

@@ -17,15 +17,15 @@ package electron.main;
 		Send given command to the debugging target.
 	**/
 	@:overload(function(method:String, ?commandParams:Any, ?callback:haxe.Constraints.Function):Void { })
-	function sendCommand(method:String, ?commandParams:Any):js.lib.Promise<Any>;
+	function sendCommand(method:String, ?commandParams:Any):js.Promise<Any>;
 }
 @:enum abstract DebuggerEvent<T:(haxe.Constraints.Function)>(js.node.events.EventEmitter.Event<T>) to js.node.events.EventEmitter.Event<T> {
 	/**
 		Emitted when debugging session is terminated. This happens either when webContents is closed or devtools is invoked for the attached webContents.
 	**/
-	var detach : electron.main.DebuggerEvent<(js.html.Event, String) -> Void> = "detach";
+	var detach : electron.main.DebuggerEvent<js.html.Event -> String -> Void> = "detach";
 	/**
 		Emitted whenever debugging target issues instrumentation event.
 	**/
-	var message : electron.main.DebuggerEvent<(js.html.Event, String, Any) -> Void> = "message";
+	var message : electron.main.DebuggerEvent<js.html.Event -> String -> Any -> Void> = "message";
 }

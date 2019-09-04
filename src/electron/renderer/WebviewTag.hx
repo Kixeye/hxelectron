@@ -1,8 +1,4 @@
 package electron.renderer;
-/**
-	Display external web content in an isolated frame and process.
-	@see http://electronjs.org/docs/api/webview-tag
-**/
 @:native("webviewTag") extern class WebviewTag extends js.html.Element {
 	/**
 		Returns the visible URL. Writing to this attribute initiates top-level navigation. Assigning src its own value will reload the current page. The src attribute can also accept data URLs, such as data:text/plain,Hello, world!.
@@ -80,7 +76,7 @@ package electron.renderer;
 		Base url (with trailing path separator) for files to be loaded by the data url. This is needed only if the specified url is a data url and needs to load other files.
 	**/
 	@:optional
-	var baseURLForDataURL : String; }):js.lib.Promise<Any>;
+	var baseURLForDataURL : String; }):js.Promise<Any>;
 	/**
 		Initiates a download of the resource at url without navigating.
 	**/
@@ -138,8 +134,8 @@ package electron.renderer;
 	/**
 		Evaluates code in page. If userGesture is set, it will create the user gesture context in the page. HTML APIs like requestFullScreen, which require user action, can take advantage of this option for automation.
 	**/
-	@:overload(function(code:String, ?userGesture:Bool, ?callback:haxe.Constraints.Function):js.lib.Promise<Any> { })
-	function executeJavaScript(code:String, ?userGesture:Bool):js.lib.Promise<Any>;
+	@:overload(function(code:String, ?userGesture:Bool, ?callback:haxe.Constraints.Function):js.Promise<Any> { })
+	function executeJavaScript(code:String, ?userGesture:Bool):js.Promise<Any>;
 	/**
 		Opens a DevTools window for guest page.
 	**/
@@ -304,12 +300,12 @@ package electron.renderer;
 		true for landscape, false for portrait.
 	**/
 	@:optional
-	var landscape : Bool; }):js.lib.Promise<Any>;
+	var landscape : Bool; }):js.Promise<Any>;
 	/**
 		Captures a snapshot of the page within rect. Omitting rect will capture the whole visible page.
 	**/
 	@:overload(function(?rect:electron.Rectangle, callback:haxe.Constraints.Function):Void { })
-	function capturePage(?rect:electron.Rectangle):js.lib.Promise<Any>;
+	function capturePage(?rect:electron.Rectangle):js.Promise<Any>;
 	/**
 		Send an asynchronous message to renderer process via channel, you can also send arbitrary arguments. The renderer process can handle the message by listening to the channel event with the ipcRenderer module. See webContents.send for examples.
 	**/

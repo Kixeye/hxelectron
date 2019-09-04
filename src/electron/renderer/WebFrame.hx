@@ -1,8 +1,4 @@
 package electron.renderer;
-/**
-	Customize the rendering of the current web page.
-	@see http://electronjs.org/docs/api/web-frame
-**/
 @:jsRequire("electron", "webFrame") extern class WebFrame {
 	/**
 		A WebFrame representing top frame in frame hierarchy to which webFrame belongs, the property would be null if top frame is not in the current renderer process.
@@ -64,13 +60,13 @@ package electron.renderer;
 	/**
 		Evaluates code in page. In the browser window some HTML APIs like requestFullScreen can only be invoked by a gesture from the user. Setting userGesture to true will remove this limitation.
 	**/
-	@:overload(function(code:String, ?userGesture:Bool, ?callback:haxe.Constraints.Function):js.lib.Promise<Any> { })
-	static function executeJavaScript(code:String, ?userGesture:Bool):js.lib.Promise<Any>;
+	@:overload(function(code:String, ?userGesture:Bool, ?callback:haxe.Constraints.Function):js.Promise<Any> { })
+	static function executeJavaScript(code:String, ?userGesture:Bool):js.Promise<Any>;
 	/**
 		Works like executeJavaScript but evaluates scripts in an isolated context.
 	**/
-	@:overload(function(worldId:Int, scripts:Array<electron.WebSource>, ?userGesture:Bool, ?callback:haxe.Constraints.Function):js.lib.Promise<Any> { })
-	static function executeJavaScriptInIsolatedWorld(worldId:Int, scripts:Array<electron.WebSource>, ?userGesture:Bool):js.lib.Promise<Any>;
+	@:overload(function(worldId:Int, scripts:Array<electron.WebSource>, ?userGesture:Bool, ?callback:haxe.Constraints.Function):js.Promise<Any> { })
+	static function executeJavaScriptInIsolatedWorld(worldId:Int, scripts:Array<electron.WebSource>, ?userGesture:Bool):js.Promise<Any>;
 	/**
 		Set the content security policy of the isolated world.
 	**/

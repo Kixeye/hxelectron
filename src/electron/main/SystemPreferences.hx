@@ -1,8 +1,4 @@
 package electron.main;
-/**
-	Get system preferences.
-	@see http://electronjs.org/docs/api/system-preferences
-**/
 @:jsRequire("electron", "systemPreferences") extern class SystemPreferences extends js.node.events.EventEmitter<electron.main.SystemPreferences> {
 	@:electron_platforms(["macOS"])
 	static function isDarkMode():Bool;
@@ -118,7 +114,7 @@ package electron.main;
 		This API itself will not protect your user data; rather, it is a mechanism to allow you to do so. Native apps will need to set Access Control Constants like kSecAccessControlUserPresence on the their keychain entry so that reading it would auto-prompt for Touch ID biometric consent. This could be done with node-keytar, such that one would store an encryption key with node-keytar and only fetch it if promptTouchID() resolves. NOTE: This API will return a rejected Promise on macOS systems older than Sierra 10.12.2.
 	**/
 	@:electron_platforms(["macOS"])
-	static function promptTouchID(reason:String):js.lib.Promise<Any>;
+	static function promptTouchID(reason:String):js.Promise<Any>;
 	@:electron_platforms(["macOS"])
 	static function isTrustedAccessibilityClient(prompt:Bool):Bool;
 	/**
@@ -130,7 +126,7 @@ package electron.main;
 		Important: In order to properly leverage this API, you must set the NSMicrophoneUsageDescription and NSCameraUsageDescription strings in your app's Info.plist file. The values for these keys will be used to populate the permission dialogs so that the user will be properly informed as to the purpose of the permission request. See Electron Application Distribution for more information about how to set these in the context of Electron. This user consent was not required until macOS 10.14 Mojave, so this method will always return true if your system is running 10.13 High Sierra or lower.
 	**/
 	@:electron_platforms(["macOS"])
-	static function askForMediaAccess(mediaType:String):js.lib.Promise<Any>;
+	static function askForMediaAccess(mediaType:String):js.Promise<Any>;
 	/**
 		Returns an object with system animation settings.
 	**/
@@ -138,11 +134,11 @@ package electron.main;
 }
 @:enum abstract SystemPreferencesEvent<T:(haxe.Constraints.Function)>(js.node.events.EventEmitter.Event<T>) to js.node.events.EventEmitter.Event<T> {
 	@:electron_platforms(["Windows"])
-	var accent_color_changed : electron.main.SystemPreferencesEvent<(js.html.Event, String) -> Void> = "accent-color-changed";
+	var accent_color_changed : electron.main.SystemPreferencesEvent<js.html.Event -> String -> Void> = "accent-color-changed";
 	@:electron_platforms(["Windows"])
 	var color_changed : electron.main.SystemPreferencesEvent<js.html.Event -> Void> = "color-changed";
 	@:electron_platforms(["Windows"])
-	var inverted_color_scheme_changed : electron.main.SystemPreferencesEvent<(js.html.Event, Bool) -> Void> = "inverted-color-scheme-changed";
+	var inverted_color_scheme_changed : electron.main.SystemPreferencesEvent<js.html.Event -> Bool -> Void> = "inverted-color-scheme-changed";
 	@:electron_platforms(["Windows"])
-	var high_contrast_color_scheme_changed : electron.main.SystemPreferencesEvent<(js.html.Event, Bool) -> Void> = "high-contrast-color-scheme-changed";
+	var high_contrast_color_scheme_changed : electron.main.SystemPreferencesEvent<js.html.Event -> Bool -> Void> = "high-contrast-color-scheme-changed";
 }

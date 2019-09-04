@@ -1,8 +1,4 @@
 package electron.main;
-/**
-	Display native system dialogs for opening and saving files, alerting, etc.
-	@see http://electronjs.org/docs/api/dialog
-**/
 @:jsRequire("electron", "dialog") extern class Dialog {
 	/**
 		The browserWindow argument allows the dialog to attach itself to a parent window, making it modal. The filters specifies an array of file types that can be displayed or selected when you want to limit the user to a specific type. For example: The extensions array should contain extensions without wildcards or dots (e.g. 'png' is good but '.png' and '*.png' are bad). To show all files, use the '*' wildcard (no other wildcard is supported). Note: On Windows and Linux an open dialog can not be both a file selector and a directory selector, so if you set properties to ['openFile', 'openDirectory'] on these platforms, a directory selector will be shown.
@@ -49,7 +45,7 @@ package electron.main;
 		Create when packaged for the Mac App Store.
 	**/
 	@:optional
-	var securityScopedBookmarks : Bool; }, ?callback:haxe.Constraints.Function):js.lib.Promise<Any>;
+	var securityScopedBookmarks : Bool; }, ?callback:haxe.Constraints.Function):js.Promise<Any>;
 	/**
 		The browserWindow argument allows the dialog to attach itself to a parent window, making it modal. The filters specifies an array of file types that can be displayed, see dialog.showOpenDialog for an example.
 	**/
@@ -109,7 +105,7 @@ package electron.main;
 		Create a when packaged for the Mac App Store. If this option is enabled and the file doesn't already exist a blank file will be created at the chosen path.
 	**/
 	@:optional
-	var securityScopedBookmarks : Bool; }):js.lib.Promise<Any>;
+	var securityScopedBookmarks : Bool; }):js.Promise<Any>;
 	/**
 		Shows a message box, it will block the process until the message box is closed. It returns the index of the clicked button. The browserWindow argument allows the dialog to attach itself to a parent window, making it modal.
 	**/
@@ -205,7 +201,7 @@ package electron.main;
 		Normalize the keyboard access keys across platforms. Default is false. Enabling this assumes & is used in the button labels for the placement of the keyboard shortcut access key and labels will be converted so they work correctly on each platform, & characters are removed on macOS, converted to _ on Linux, and left untouched on Windows. For example, a button label of Vie&w will be converted to Vie_w on Linux and View on macOS and can be selected via Alt-W on Windows and Linux.
 	**/
 	@:optional
-	var normalizeAccessKeys : Bool; }):js.lib.Promise<Any>;
+	var normalizeAccessKeys : Bool; }):js.Promise<Any>;
 	/**
 		Displays a modal dialog that shows an error message. This API can be called safely before the ready event the app module emits, it is usually used to report errors in early stage of startup. If called before the app readyevent on Linux, the message will be emitted to stderr, and no GUI dialog will appear.
 	**/
@@ -227,5 +223,5 @@ package electron.main;
 	var certificate : electron.Certificate; /**
 		The message to display to the user.
 	**/
-	var message : String; }):js.lib.Promise<Any>;
+	var message : String; }):js.Promise<Any>;
 }

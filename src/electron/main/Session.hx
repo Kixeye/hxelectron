@@ -1,6 +1,6 @@
 package electron.main;
 /**
-	Manage browser sessions, cookies, cache, proxy settings, etc.
+	Get and set properties of a session.
 	@see http://electronjs.org/docs/api/session
 **/
 @:jsRequire("electron", "session") extern class Session {
@@ -32,12 +32,12 @@ package electron.main;
 	**/
 	var netLog : electron.main.NetLog;
 	@:overload(function(callback:haxe.Constraints.Function):Void { })
-	function getCacheSize():js.lib.Promise<Any>;
+	function getCacheSize():js.Promise<Any>;
 	/**
 		Clears the session’s HTTP cache.
 	**/
 	@:overload(function(callback:haxe.Constraints.Function):Void { })
-	function clearCache():js.lib.Promise<Any>;
+	function clearCache():js.Promise<Any>;
 	@:overload(function(?options:{ /**
 		Should follow window.location.origin’s representation scheme://host:port.
 	**/
@@ -63,7 +63,7 @@ package electron.main;
 		The types of quotas to clear, can contain: temporary, persistent, syncable.
 	**/
 	@:optional
-	var quotas : Array<String>; }):js.lib.Promise<Any>;
+	var quotas : Array<String>; }):js.Promise<Any>;
 	/**
 		Writes any unwritten DOMStorage data to disk.
 	**/
@@ -90,9 +90,9 @@ package electron.main;
 	var proxyRules : String; /**
 		Rules indicating which URLs should bypass the proxy settings.
 	**/
-	var proxyBypassRules : String; }):js.lib.Promise<Any>;
+	var proxyBypassRules : String; }):js.Promise<Any>;
 	@:overload(function(url:String, callback:haxe.Constraints.Function):Void { })
-	function resolveProxy(url:String):js.lib.Promise<Any>;
+	function resolveProxy(url:String):js.Promise<Any>;
 	/**
 		Sets download saving directory. By default, the download directory will be the Downloads under the respective app folder.
 	**/
@@ -137,7 +137,7 @@ package electron.main;
 		Clears the host resolver cache.
 	**/
 	@:overload(function(?callback:haxe.Constraints.Function):Void { })
-	function clearHostResolverCache():js.lib.Promise<Any>;
+	function clearHostResolverCache():js.Promise<Any>;
 	/**
 		Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate authentication.
 	**/
@@ -148,7 +148,7 @@ package electron.main;
 	function setUserAgent(userAgent:String, ?acceptLanguages:String):Void;
 	function getUserAgent():String;
 	@:overload(function(identifier:String, callback:haxe.Constraints.Function):Void { })
-	function getBlobData(identifier:String):js.lib.Promise<Any>;
+	function getBlobData(identifier:String):js.Promise<Any>;
 	/**
 		Allows resuming cancelled or interrupted downloads from previous Session. The API will generate a DownloadItem that can be accessed with the will-download event. The DownloadItem will not have any WebContents associated with it and the initial state will be interrupted. The download will start only when the resume API is called on the DownloadItem.
 	**/
@@ -178,8 +178,8 @@ package electron.main;
 	var startTime : Float; }):Void;
 	@:electron_platforms(["deprecated"])
 	@:overload(function(options:haxe.extern.EitherType<electron.RemovePassword, electron.RemoveClientCertificate>, callback:haxe.Constraints.Function):Void { })
-	@:overload(function():js.lib.Promise<Any> { })
-	function clearAuthCache(options:haxe.extern.EitherType<electron.RemovePassword, electron.RemoveClientCertificate>):js.lib.Promise<Any>;
+	@:overload(function():js.Promise<Any> { })
+	function clearAuthCache(options:haxe.extern.EitherType<electron.RemovePassword, electron.RemoveClientCertificate>):js.Promise<Any>;
 	/**
 		Adds scripts that will be executed on ALL web contents that are associated with this session just before normal preload scripts run.
 	**/
@@ -190,5 +190,5 @@ package electron.main;
 	/**
 		Emitted when Electron is about to download item in webContents. Calling event.preventDefault() will cancel the download and item will not be available from next tick of the process.
 	**/
-	var will_download : electron.main.SessionEvent<(js.html.Event, electron.main.DownloadItem, electron.main.WebContents) -> Void> = "will-download";
+	var will_download : electron.main.SessionEvent<js.html.Event -> electron.main.DownloadItem -> electron.main.WebContents -> Void> = "will-download";
 }

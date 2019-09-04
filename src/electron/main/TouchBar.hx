@@ -11,10 +11,6 @@ package electron.main;
 	function new(options:{ var items : Array<haxe.extern.EitherType<TouchBarButton, haxe.extern.EitherType<TouchBarColorPicker, haxe.extern.EitherType<TouchBarGroup, haxe.extern.EitherType<TouchBarLabel, haxe.extern.EitherType<TouchBarPopover, haxe.extern.EitherType<TouchBarScrubber, haxe.extern.EitherType<TouchBarSegmentedControl, haxe.extern.EitherType<TouchBarSlider, TouchBarSpacer>>>>>>>>>; @:optional
 	var escapeItem : haxe.extern.EitherType<TouchBarButton, haxe.extern.EitherType<TouchBarColorPicker, haxe.extern.EitherType<TouchBarGroup, haxe.extern.EitherType<TouchBarLabel, haxe.extern.EitherType<TouchBarPopover, haxe.extern.EitherType<TouchBarScrubber, haxe.extern.EitherType<TouchBarSegmentedControl, haxe.extern.EitherType<TouchBarSlider, haxe.extern.EitherType<TouchBarSpacer, Dynamic>>>>>>>>>; }):Void;
 }
-/**
-	Create a button in the touch bar for native macOS applications
-	@see http://electronjs.org/docs/api/touch-bar-button
-**/
 @:jsRequire("electron", "TouchBar.TouchBarButton") extern class TouchBarButton {
 	/**
 		A String representing the button's current text. Changing this value immediately updates the button in the touch bar.
@@ -50,10 +46,6 @@ package electron.main;
 	@:optional
 	var click : haxe.Constraints.Function; }):Void;
 }
-/**
-	Create a color picker in the touch bar for native macOS applications
-	@see http://electronjs.org/docs/api/touch-bar-color-picker
-**/
 @:jsRequire("electron", "TouchBar.TouchBarColorPicker") extern class TouchBarColorPicker {
 	/**
 		A String[] array representing the color picker's available colors to select. Changing this value immediately updates the color picker in the touch bar.
@@ -77,20 +69,12 @@ package electron.main;
 	@:optional
 	var change : haxe.Constraints.Function; }):Void;
 }
-/**
-	Create a group in the touch bar for native macOS applications
-	@see http://electronjs.org/docs/api/touch-bar-group
-**/
 @:jsRequire("electron", "TouchBar.TouchBarGroup") extern class TouchBarGroup {
 	function new(options:{ /**
 		Items to display as a group.
 	**/
 	var items : electron.main.TouchBar; }):Void;
 }
-/**
-	Create a label in the touch bar for native macOS applications
-	@see http://electronjs.org/docs/api/touch-bar-label
-**/
 @:jsRequire("electron", "TouchBar.TouchBarLabel") extern class TouchBarLabel {
 	/**
 		A String representing the label's current text. Changing this value immediately updates the label in the touch bar.
@@ -110,10 +94,6 @@ package electron.main;
 	@:optional
 	var textColor : String; }):Void;
 }
-/**
-	Create a popover in the touch bar for native macOS applications
-	@see http://electronjs.org/docs/api/touch-bar-popover
-**/
 @:jsRequire("electron", "TouchBar.TouchBarPopover") extern class TouchBarPopover {
 	/**
 		A String representing the popover's current button text. Changing this value immediately updates the popover in the touch bar.
@@ -141,10 +121,6 @@ package electron.main;
 	@:optional
 	var showCloseButton : Bool; }):Void;
 }
-/**
-	Create a scrubber (a scrollable selector)
-	@see http://electronjs.org/docs/api/touch-bar-scrubber
-**/
 @:jsRequire("electron", "TouchBar.TouchBarScrubber") extern class TouchBarScrubber {
 	/**
 		A ScrubberItem[] array representing the items in this scrubber. Updating this value immediately updates the control in the touch bar. Updating deep properties inside this array does not update the touch bar.
@@ -196,10 +172,6 @@ package electron.main;
 	**/
 	var continuous : Bool; }):Void;
 }
-/**
-	Create a segmented control (a button group) where one button has a selected state
-	@see http://electronjs.org/docs/api/touch-bar-segmented-control
-**/
 @:jsRequire("electron", "TouchBar.TouchBarSegmentedControl") extern class TouchBarSegmentedControl {
 	/**
 		A String representing the controls current segment style. Updating this value immediately updates the control in the touch bar.
@@ -233,10 +205,6 @@ package electron.main;
 	**/
 	var change : haxe.Constraints.Function; }):Void;
 }
-/**
-	Create a slider in the touch bar for native macOS applications
-	@see http://electronjs.org/docs/api/touch-bar-slider
-**/
 @:jsRequire("electron", "TouchBar.TouchBarSlider") extern class TouchBarSlider {
 	/**
 		A String representing the slider's current text. Changing this value immediately updates the slider in the touch bar.
@@ -276,10 +244,6 @@ package electron.main;
 	@:optional
 	var change : haxe.Constraints.Function; }):Void;
 }
-/**
-	Create a spacer between two items in the touch bar for native macOS applications
-	@see http://electronjs.org/docs/api/touch-bar-spacer
-**/
 @:jsRequire("electron", "TouchBar.TouchBarSpacer") extern class TouchBarSpacer {
 	function new(options:{ /**
 		Size of spacer, possible values are:

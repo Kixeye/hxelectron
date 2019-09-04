@@ -1,8 +1,4 @@
 package electron.renderer;
-/**
-	Communicate asynchronously from a renderer process to the main process.
-	@see http://electronjs.org/docs/api/ipc-renderer
-**/
 @:jsRequire("electron", "ipcRenderer") extern class IpcRenderer {
 	/**
 		Listens to channel, when a new message arrives listener would be called with listener(event, args...).

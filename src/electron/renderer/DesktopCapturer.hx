@@ -1,9 +1,4 @@
 package electron.renderer;
-/**
-	Access information about media sources that can be used to capture audio and
-	video from the desktop using the navigator.mediaDevices.getUserMedia API.
-	@see http://electronjs.org/docs/api/desktop-capturer
-**/
 @:jsRequire("electron", "desktopCapturer") extern class DesktopCapturer {
 	@:overload(function(options:{ /**
 		An array of Strings that lists the types of desktop sources to be captured, available types are screen and window.
@@ -28,5 +23,5 @@ package electron.renderer;
 		Set to true to enable fetching window icons. The default value is false. When false the appIcon property of the sources return null. Same if a source has the type screen.
 	**/
 	@:optional
-	var fetchWindowIcons : Bool; }):js.lib.Promise<Any>;
+	var fetchWindowIcons : Bool; }):js.Promise<Any>;
 }

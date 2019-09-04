@@ -70,7 +70,7 @@ package electron.main;
 		Emitted when the user clicks the "Reply" button on a notification with hasReply: true.
 	**/
 	@:electron_platforms(["macOS"])
-	var reply : electron.main.NotificationEvent<(js.html.Event, String) -> Void> = "reply";
+	var reply : electron.main.NotificationEvent<js.html.Event -> String -> Void> = "reply";
 	@:electron_platforms(["macOS"])
-	var action : electron.main.NotificationEvent<(js.html.Event, Float) -> Void> = "action";
+	var action : electron.main.NotificationEvent<js.html.Event -> Float -> Void> = "action";
 }

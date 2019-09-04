@@ -31,7 +31,7 @@ package electron.main;
 		Filters out session or persistent cookies.
 	**/
 	@:optional
-	var session : Bool; }):js.lib.Promise<Any> { })
+	var session : Bool; }):js.Promise<Any> { })
 	function get(filter:{ /**
 		Retrieves cookies which are associated with url. Empty implies retrieving cookies of all urls.
 	**/
@@ -91,7 +91,7 @@ package electron.main;
 		The expiration date of the cookie as the number of seconds since the UNIX epoch. If omitted then the cookie becomes a session cookie and will not be retained between sessions.
 	**/
 	@:optional
-	var expirationDate : Float; }):js.lib.Promise<Any> { })
+	var expirationDate : Float; }):js.Promise<Any> { })
 	function set(details:{ /**
 		The url to associate the cookie with.
 	**/
@@ -127,17 +127,17 @@ package electron.main;
 	/**
 		Removes the cookies matching url and name, callback will called with callback() on complete. Deprecated Soon
 	**/
-	@:overload(function(url:String, name:String):js.lib.Promise<Any> { })
+	@:overload(function(url:String, name:String):js.Promise<Any> { })
 	function remove(url:String, name:String, callback:haxe.Constraints.Function):Void;
 	/**
 		Writes any unwritten cookies data to disk. Deprecated Soon
 	**/
-	@:overload(function():js.lib.Promise<Any> { })
+	@:overload(function():js.Promise<Any> { })
 	function flushStore(callback:haxe.Constraints.Function):Void;
 }
 @:enum abstract CookiesEvent<T:(haxe.Constraints.Function)>(js.node.events.EventEmitter.Event<T>) to js.node.events.EventEmitter.Event<T> {
 	/**
 		Emitted when a cookie is changed because it was added, edited, removed, or expired.
 	**/
-	var changed : electron.main.CookiesEvent<(js.html.Event, electron.Cookie, String, Bool) -> Void> = "changed";
+	var changed : electron.main.CookiesEvent<js.html.Event -> electron.Cookie -> String -> Bool -> Void> = "changed";
 }

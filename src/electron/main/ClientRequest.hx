@@ -44,7 +44,7 @@ package electron.main;
 	/**
 		Emitted when an authenticating proxy is asking for user credentials. The callback function is expected to be called back with user credentials: Providing empty credentials will cancel the request and report an authentication error on the response object:
 	**/
-	var login : electron.main.ClientRequestEvent<(Any, haxe.Constraints.Function) -> Void> = "login";
+	var login : electron.main.ClientRequestEvent<Any -> haxe.Constraints.Function -> Void> = "login";
 	/**
 		Emitted just after the last chunk of the request's data has been written into the request object.
 	**/
@@ -56,7 +56,7 @@ package electron.main;
 	/**
 		Emitted when the net module fails to issue a network request. Typically when the request object emits an error event, a close event will subsequently follow and no response object will be provided.
 	**/
-	var error : electron.main.ClientRequestEvent<js.lib.Error -> Void> = "error";
+	var error : electron.main.ClientRequestEvent<js.Error -> Void> = "error";
 	/**
 		Emitted as the last event in the HTTP request-response transaction. The close event indicates that no more events will be emitted on either the request or response objects.
 	**/
@@ -64,5 +64,5 @@ package electron.main;
 	/**
 		Emitted when there is redirection and the mode is manual. Calling request.followRedirect will continue with the redirection.
 	**/
-	var redirect : electron.main.ClientRequestEvent<(Int, String, String, Any) -> Void> = "redirect";
+	var redirect : electron.main.ClientRequestEvent<Int -> String -> String -> Any -> Void> = "redirect";
 }

@@ -653,7 +653,7 @@ package electron.main;
 		Captures a snapshot of the page within rect. Omitting rect will capture the whole visible page.
 	**/
 	@:overload(function(?rect:electron.Rectangle, callback:haxe.Constraints.Function):Void { })
-	function capturePage(?rect:electron.Rectangle):js.lib.Promise<Any>;
+	function capturePage(?rect:electron.Rectangle):js.Promise<Any>;
 	/**
 		Same as webContents.loadURL(url[, options]). The url can be a remote address (e.g. http://) or a path to a local HTML file using the file:// protocol. To ensure that file URLs are properly formatted, it is recommended to use Node's url.format method: You can load a URL using a POST request with URL-encoded data by doing the following:
 	**/
@@ -674,7 +674,7 @@ package electron.main;
 		Base url (with trailing path separator) for files to be loaded by the data url. This is needed only if the specified url is a data url and needs to load other files.
 	**/
 	@:optional
-	var baseURLForDataURL : String; }):js.lib.Promise<Any>;
+	var baseURLForDataURL : String; }):js.Promise<Any>;
 	/**
 		Same as webContents.loadFile, filePath should be a path to an HTML file relative to the root of your application.  See the webContents docs for more information.
 	**/
@@ -690,7 +690,7 @@ package electron.main;
 		Passed to url.format().
 	**/
 	@:optional
-	var hash : String; }):js.lib.Promise<Any>;
+	var hash : String; }):js.Promise<Any>;
 	/**
 		Same as webContents.reload.
 	**/
@@ -902,7 +902,7 @@ package electron.main;
 	/**
 		Emitted when the document changed its title, calling event.preventDefault() will prevent the native window's title from changing. explicitSet is false when title is synthesized from file url.
 	**/
-	var page_title_updated : electron.main.BrowserWindowEvent<(js.html.Event, String, Bool) -> Void> = "page-title-updated";
+	var page_title_updated : electron.main.BrowserWindowEvent<js.html.Event -> String -> Bool -> Void> = "page-title-updated";
 	/**
 		Emitted when the window is going to be closed. It's emitted before the beforeunload and unload event of the DOM. Calling event.preventDefault() will cancel the close. Usually you would want to use the beforeunload handler to decide whether the window should be closed, which will also be called when the window is reloaded. In Electron, returning any value other than undefined would cancel the close. For example: Note: There is a subtle difference between the behaviors of window.onbeforeunload = handler and window.addEventListener('beforeunload', handler). It is recommended to always set the event.returnValue explicitly, instead of only returning a value, as the former works more consistently within Electron.
 	**/
@@ -964,7 +964,7 @@ package electron.main;
 		Emitted before the window is resized. Calling event.preventDefault() will prevent the window from being resized. Note that this is only emitted when the window is being resized manually. Resizing the window with setBounds/setSize will not emit this event.
 	**/
 	@:electron_platforms(["macOS", "Windows"])
-	var will_resize : electron.main.BrowserWindowEvent<(js.html.Event, electron.Rectangle) -> Void> = "will-resize";
+	var will_resize : electron.main.BrowserWindowEvent<js.html.Event -> electron.Rectangle -> Void> = "will-resize";
 	/**
 		Emitted after the window has been resized.
 	**/
@@ -973,7 +973,7 @@ package electron.main;
 		Emitted before the window is moved. Calling event.preventDefault() will prevent the window from being moved. Note that this is only emitted when the window is being resized manually. Resizing the window with setBounds/setSize will not emit this event.
 	**/
 	@:electron_platforms(["Windows"])
-	var will_move : electron.main.BrowserWindowEvent<(js.html.Event, electron.Rectangle) -> Void> = "will-move";
+	var will_move : electron.main.BrowserWindowEvent<js.html.Event -> electron.Rectangle -> Void> = "will-move";
 	/**
 		Emitted when the window is being moved to a new position. Note: On macOS this event is an alias of moved.
 	**/
@@ -1002,12 +1002,12 @@ package electron.main;
 	/**
 		Emitted when the window is set or unset to show always on top of other windows.
 	**/
-	var always_on_top_changed : electron.main.BrowserWindowEvent<(js.html.Event, Bool) -> Void> = "always-on-top-changed";
+	var always_on_top_changed : electron.main.BrowserWindowEvent<js.html.Event -> Bool -> Void> = "always-on-top-changed";
 	/**
 		Emitted when an App Command is invoked. These are typically related to keyboard media keys or browser commands, as well as the "Back" button built into some mice on Windows. Commands are lowercased, underscores are replaced with hyphens, and the APPCOMMAND_ prefix is stripped off. e.g. APPCOMMAND_BROWSER_BACKWARD is emitted as browser-backward. The following app commands are explictly supported on Linux:
 	**/
 	@:electron_platforms(["Windows", "Linux"])
-	var app_command : electron.main.BrowserWindowEvent<(js.html.Event, String) -> Void> = "app-command";
+	var app_command : electron.main.BrowserWindowEvent<js.html.Event -> String -> Void> = "app-command";
 	/**
 		Emitted when scroll wheel event phase has begun.
 	**/
@@ -1027,7 +1027,7 @@ package electron.main;
 		Emitted on 3-finger swipe. Possible directions are up, right, down, left.
 	**/
 	@:electron_platforms(["macOS"])
-	var swipe : electron.main.BrowserWindowEvent<(js.html.Event, String) -> Void> = "swipe";
+	var swipe : electron.main.BrowserWindowEvent<js.html.Event -> String -> Void> = "swipe";
 	/**
 		Emitted when the window opens a sheet.
 	**/
